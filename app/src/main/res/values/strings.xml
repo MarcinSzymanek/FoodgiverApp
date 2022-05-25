@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">WebSocketProtoAndroid</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="display_connect">Connect to Foodgiver service</string>
+    <string name="display_connect_success">You are now connected to Foodgiver server! You will receive notifications when your pet presses the Treat Button :)</string>
+    <string name="display_connect_fail">Oops... Something went wrong! Try again in a minute. </string>
+    <string name="button_connect">CONNECT!</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title">Foodgiver</string>
+</resources>
