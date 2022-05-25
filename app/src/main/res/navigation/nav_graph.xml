@@ -20,9 +20,30 @@
         android:name="com.example.websocketprotoandroid.SecondFragment"
         android:label="@string/title"
         tools:layout="@layout/fragment_second">
-
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_to_fragment_treat_request"
+            app:destination="@id/FragmentTreatRequest" />
     </fragment>
+    <fragment
+        android:id="@+id/FragmentTreatRequest"
+        android:name="com.example.websocketprotoandroid.FragmentTreatRequest"
+        android:label="@string/title"
+        tools:layout="@layout/fragment_treat_request">
+        <action
+            android:id="@+id/action_to_request_reply"
+            app:destination="@id/FragmentRequestReply" />
+    </fragment>
+    <fragment
+        android:id="@+id/FragmentRequestReply"
+        android:name="com.example.websocketprotoandroid.FragmentRequestReply"
+        android:label="@string/title"
+        tools:layout="@layout/fragment_request_reply">
+        <action
+            android:id="@+id/action_to_fragment_treat_request"
+            app:destination="@id/FragmentTreatRequest" />
+    </fragment>
+    <action
+        android:id="@+id/global_action_to_request_reply"
+        app:destination="@id/FragmentRequestReply"
+        app:popUpTo="@id/FragmentRequestReply" />
 </navigation>

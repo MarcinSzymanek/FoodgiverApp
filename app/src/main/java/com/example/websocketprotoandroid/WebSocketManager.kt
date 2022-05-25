@@ -1,6 +1,15 @@
 package com.example.websocketprotoandroid
 
+import android.app.Application
+import android.content.Context
+import android.content.Intent
 import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.lang.Exception
@@ -15,6 +24,16 @@ class WebSocketManager () {
         var connected : Boolean = false
         const val timeout : Long = 3000
         var mClient : WsClient? = null
+
+        var navController : NavController? = null
+        val fg_id = "420"
+        var reply = false
+
+
+        fun setupWebSocketManager(pNav : NavController){
+            navController = pNav
+        }
+
         class WsClient : WebSocketClient(URI(WEB_SOCKET_URL)){
             override fun onOpen(handshakeData: ServerHandshake?) {
                 Log.d(TAG, "onOpen was called")
@@ -22,8 +41,21 @@ class WebSocketManager () {
                 subscribe()
             }
 
+            fun sendAck(){
+                val ack = "treat ack_"
+                val message = "$ack$fg_id"
+                send(message)
+            }
+
+            fun sendNack(){
+                val nack = "treat nack_"
+                val message = "$nack$fg_id"
+                send(message)
+            }
+
             override fun onMessage(message: String){
                 Log.d(TAG, "Message from server: " + message)
+                handleMessage(message)
             }
 
             override fun onClose(code: Int, reason: String?, remote: Boolean) {
@@ -33,11 +65,20 @@ class WebSocketManager () {
 
             override fun onError(ex: Exception?) {
                 Log.d(TAG, "Error, throw exception here")
+                Log.d(TAG, ex.toString())
             }
 
             private fun subscribe(){
                 // Subscribe to foodgiver service to receive notifications
                 send("auth_420\n")
+            }
+
+            private fun handleMessage(message: String){
+                Log.d(TAG, "handling ws message")
+                if(message == "treat request"){
+                    Log.d(TAG, "Intent called")
+                    navController?.navigate(R.id.action_to_fragment_treat_request)
+                }
             }
         }
         fun connectClient(){
@@ -45,6 +86,16 @@ class WebSocketManager () {
                 mClient = WsClient()
                 mClient?.connectBlocking(timeout, TimeUnit.MILLISECONDS)
             }
+        }
+
+        fun sendAck(){
+            mClient?.sendAck()
+            reply = true
+        }
+
+        fun sendNack(){
+            mClient?.sendNack()
+            reply = false
         }
     }
 }

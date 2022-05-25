@@ -2,6 +2,12 @@ package com.example.websocketprotoandroid
 // IMPORTANT!!! code follows https://medium.com/swlh/android-tutorial-part-1-using-java-websocket-with-kotlin-646a5f1f09de
 
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
@@ -12,6 +18,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.app.NotificationCompat
 import androidx.core.view.WindowCompat
 import com.example.websocketprotoandroid.databinding.ActivityMainBinding
 import org.java_websocket.client.WebSocketClient
@@ -30,12 +37,25 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
+        var builder = NotificationCompat.Builder(this, getString(R.string.not_channel_id))
+            .setSmallIcon(R.drawable.paw_orange)
+            .setContentTitle(getString(R.string.not_channel_name))
+            .setContentText(getString(R.string.treat_notification_text))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+
+        }
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+        WebSocketManager.setupWebSocketManager(findNavController(R.id.nav_host_fragment_content_main))
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.fab.setOnClickListener { view ->
@@ -59,6 +79,21 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = getString(R.string.not_channel_name)
+            val descriptionText = getString(R.string.not_channel_desc)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(getString(R.string.not_channel_id), name, importance).apply{
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager : NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
         }
     }
 

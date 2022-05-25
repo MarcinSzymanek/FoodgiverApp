@@ -10,32 +10,48 @@
         android:id="@+id/textview_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="168dp"
         android:text="@string/display_connect"
         android:textSize="24sp"
         android:textStyle="bold"
         android:typeface="sans"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_first"
         android:layout_width="212dp"
         android:layout_height="113dp"
         android:layout_marginBottom="100dp"
+        android:background="@drawable/button_smooth"
         android:fontFamily="sans-serif-condensed-light"
+        android:padding="10dp"
         android:text="@string/button_connect"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@android:color/background_light"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:backgroundTint="@android:color/holo_orange_light"
+        app:backgroundTint="@color/orange_mine"
         app:iconTint="@color/design_default_color_on_secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first" />
+        app:layout_constraintTop_toBottomOf="@id/textview_first"
+        app:layout_constraintVertical_bias="0.339" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="210dp"
+        android:layout_height="399dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="340dp"
+        android:rotation="20"
+        android:rotationX="0"
+        android:src="@drawable/paws"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
