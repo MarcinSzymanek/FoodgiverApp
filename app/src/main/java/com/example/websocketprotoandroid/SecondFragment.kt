@@ -32,7 +32,7 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        WebSocketManager.setupWebSocketManager(Navigation.findNavController(view))
+        //WebSocketManager.setupWebSocketManager(Navigation.findNavController(view))
     }
 
     override fun onDestroyView() {

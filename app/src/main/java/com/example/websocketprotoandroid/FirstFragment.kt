@@ -1,5 +1,7 @@
 package com.example.websocketprotoandroid
 
+import android.app.*
+import android.app.NotificationManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.example.websocketprotoandroid.databinding.FragmentFirstBinding
 
@@ -22,13 +25,24 @@ class FirstFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    var notificationManager : NotificationManager? = null
+
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        val mAct = activity
+        if(mAct != null){
+            notificationManager = ContextCompat.getSystemService(mAct, NotificationManager::class.java) as NotificationManager
+        }
+        else{
+            Log.d("FAct", "mAct is null...")
+        }
+
         return binding.root
 
     }

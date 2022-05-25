@@ -46,4 +46,8 @@
         android:id="@+id/global_action_to_request_reply"
         app:destination="@id/FragmentRequestReply"
         app:popUpTo="@id/FragmentRequestReply" />
+    <action
+        android:id="@+id/global_action_to_treat_request"
+        app:destination="@id/FragmentTreatRequest"
+        app:popUpTo="@id/FragmentTreatRequest" />
 </navigation>

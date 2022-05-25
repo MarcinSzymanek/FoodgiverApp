@@ -7,6 +7,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -39,15 +40,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        var builder = NotificationCompat.Builder(this, getString(R.string.not_channel_id))
-            .setSmallIcon(R.drawable.paw_orange)
-            .setContentTitle(getString(R.string.not_channel_name))
-            .setContentText(getString(R.string.treat_notification_text))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-
-        }
+        createNotificationChannel()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -55,13 +48,30 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        WebSocketManager.setupWebSocketManager(findNavController(R.id.nav_host_fragment_content_main))
+        WebSocketManager.setupWebSocketManager(findNavController(R.id.nav_host_fragment_content_main), this)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+
+
+        Log.d("Main", "End onCreate")
+    }
+
+    override fun onResume(){
+        super.onResume()
+        if(WebSocketManager.treatRequestReceived){
+            findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.global_action_to_treat_request)
+            Log.d("Main", "treat received after waking main")
         }
+        Log.w("Main", "Resumed main")
+    }
+
+    override fun onRestart(){
+        super.onRestart()
+        if(WebSocketManager.treatRequestReceived){
+            findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.global_action_to_treat_request)
+            Log.d("Main", "treat received after waking main")
+        }
+        Log.w("Main", "Restarted main")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -93,6 +103,10 @@ class MainActivity : AppCompatActivity() {
             // Register the channel with the system
             val notificationManager : NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            channel.enableLights(true)
+            channel.lightColor = Color.RED
+            channel.enableVibration(true)
+            channel.description = "Feed your pet, dummy!"
             notificationManager.createNotificationChannel(channel)
         }
     }

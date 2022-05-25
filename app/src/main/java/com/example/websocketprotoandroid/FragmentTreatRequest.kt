@@ -43,17 +43,19 @@ class FragmentTreatRequest : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.i("Treat fragment", "View has been created. Listening to U input")
-        WebSocketManager.setupWebSocketManager(Navigation.findNavController(view))
+        // WebSocketManager.setupWebSocketManager(Navigation.findNavController(view), this.activity)
         binding.buttonDeny.setOnClickListener {
             // Send message to the ws server that we deny
             Log.d("button deny", "button pressed")
             WebSocketManager.sendNack()
+            WebSocketManager.treatRequestReceived = false
             this.findNavController().navigate(R.id.global_action_to_request_reply)
         }
 
         binding.buttonAllow.setOnClickListener {
             // Send message to the ws server that we allow the treat
             Log.d("button allow", "button pressed")
+            WebSocketManager.treatRequestReceived = false
             WebSocketManager.sendAck()
             this.findNavController().navigate(R.id.global_action_to_request_reply)
         }
