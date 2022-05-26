@@ -31,13 +31,14 @@ class WebSocketManager () {
         var navController : NavController? = null
         var notificationManager : NotificationManager? = null
         var mActivity : Activity? = null
-        val fg_id = "420"
+        var fg_id : String? = null
         var reply = false
 
 
-        fun setupWebSocketManager(pNav : NavController, act : Activity){
+        fun setupWebSocketManager(pNav : NavController, act : Activity, id : String){
             navController = pNav
             mActivity = act
+            fg_id = id
         }
 
         class WsClient : WebSocketClient(URI(WEB_SOCKET_URL)){
@@ -76,7 +77,10 @@ class WebSocketManager () {
 
             private fun subscribe(){
                 // Subscribe to foodgiver service to receive notifications
-                send("auth_420\n")
+                // Append extra characters to not crash the server...
+                //val str = "000"
+                // nvm...
+                send("auth_$fg_id\n")
             }
 
             private fun handleMessage(message: String){

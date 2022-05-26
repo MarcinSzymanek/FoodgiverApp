@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WebSocketProtoAndroid</string>
+    <string name="app_name">FoodgiverConnect</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="display_connect">Connect to Foodgiver service</string>
@@ -31,4 +31,7 @@
     <string name="display_treat_request">Your pet asks for a treat!</string>
     <string name="display_treat_allowed">Treat allowed!</string>
     <string name="display_treat_denied">Treat denied!</string>
+    <string name="display_auth">Please enter your foodgiver device number:</string>
+    <string name="button_save">Save</string>
+    <string name="edittext_auth">Enter your device number</string>
 </resources>

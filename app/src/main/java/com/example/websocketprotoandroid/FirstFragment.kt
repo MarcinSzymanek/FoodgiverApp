@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.websocketprotoandroid.databinding.FragmentFirstBinding
 
@@ -51,8 +53,11 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.i(TAG, "View has been created. Listening to U input")
+        var act : Activity? = activity
+        val id = act?.let { readFromFile(it.applicationContext, "config.txt") }
+        WebSocketManager.setupWebSocketManager(findNavController(), act!!, id!!)
 
-        binding.buttonFirst.setOnClickListener {
+        binding.buttonConnect.setOnClickListener {
             WebSocketManager.connectClient()
             if(WebSocketManager.connected){
                 findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)

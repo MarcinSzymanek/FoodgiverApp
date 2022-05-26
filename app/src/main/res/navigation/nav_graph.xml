@@ -42,6 +42,19 @@
             android:id="@+id/action_to_fragment_treat_request"
             app:destination="@id/FragmentTreatRequest" />
     </fragment>
+    <fragment
+        android:id="@+id/AuthFragment"
+        android:name="com.example.websocketprotoandroid.AuthFragment"
+        android:label="@string/title"
+        tools:layout="@layout/fragment_auth">
+        <action
+            android:id="@+id/action_to_connect_screen"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <action
+        android:id="@+id/global_action_to_authenticate"
+        app:destination="@id/AuthFragment"
+        app:popUpTo="@id/AuthFragment" />
     <action
         android:id="@+id/global_action_to_request_reply"
         app:destination="@id/FragmentRequestReply"

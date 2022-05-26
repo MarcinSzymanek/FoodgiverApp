@@ -27,6 +27,7 @@ import java.net.URI
 import java.net.URISyntaxException
 import java.nio.ByteBuffer
 import org.java_websocket.handshake.ServerHandshake
+import java.io.*
 import java.lang.Exception
 
 
@@ -36,9 +37,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        var authenticated = false
+        val dev_id : String? = null
         super.onCreate(savedInstanceState)
+        val onFile = readFromFile(this, "auth.txt")
+        Log.w("File contents", onFile)
 
-
+        val file = File("config.txt")
+        file.delete()
 
         createNotificationChannel()
 
@@ -48,10 +54,15 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        WebSocketManager.setupWebSocketManager(findNavController(R.id.nav_host_fragment_content_main), this)
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        authenticated = checkAuthentication()
+        if(!authenticated){
+            Log.d("Main", "NOT AUTHENTICATED!!!")
+            findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.global_action_to_authenticate)
+        }
 
         Log.d("Main", "End onCreate")
     }
@@ -109,6 +120,19 @@ class MainActivity : AppCompatActivity() {
             channel.description = "Feed your pet, dummy!"
             notificationManager.createNotificationChannel(channel)
         }
+    }
+
+    private fun checkAuthentication() : Boolean{
+        var authenticated = false
+        val fileAuth = "auth.txt"
+        val authResult = readFromFile(this, fileAuth)
+        Log.w("Auth", "auth.txt file contents:")
+        Log.i("Auth", authResult)
+        if(authResult.trim() == "true"){
+            authenticated = true
+        }
+
+        return authenticated
     }
 
     /*override fun onSupportNavigateUp(): Boolean {
