@@ -5,17 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.example.websocketprotoandroid.databinding.FragmentRequestReplyBinding
 import com.example.websocketprotoandroid.databinding.FragmentSecondBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class FragmentRequestReply : Fragment() {
+class ShowConnected : Fragment() {
 
-    private var _binding: FragmentRequestReplyBinding? = null
+    private var _binding: FragmentSecondBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,23 +25,14 @@ class FragmentRequestReply : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentRequestReplyBinding.inflate(inflater, container, false)
-
+        _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var text : TextView = view.findViewById(R.id.text_display_reply)
-
-        if(WebSocketManager.reply){
-            text.setText(R.string.display_treat_allowed)
-        }
-        else{
-            text.setText(R.string.display_treat_denied)
-        }
-
+        //WebSocketManager.setupWebSocketManager(Navigation.findNavController(view))
     }
 
     override fun onDestroyView() {

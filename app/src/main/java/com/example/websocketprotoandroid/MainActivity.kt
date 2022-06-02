@@ -1,6 +1,4 @@
 package com.example.websocketprotoandroid
-// IMPORTANT!!! code follows https://medium.com/swlh/android-tutorial-part-1-using-java-websocket-with-kotlin-646a5f1f09de
-
 
 import android.app.Notification
 import android.app.NotificationChannel

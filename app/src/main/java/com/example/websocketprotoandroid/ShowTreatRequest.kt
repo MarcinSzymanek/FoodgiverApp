@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.example.websocketprotoandroid.databinding.FragmentFirstBinding
 import com.example.websocketprotoandroid.databinding.FragmentTreatRequestBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -19,14 +16,13 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [FragmentTreatRequest.newInstance] factory method to
+ * Use the [ShowTreatRequest.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FragmentTreatRequest : Fragment() {
+class ShowTreatRequest : Fragment() {
+    // Binds the fragment to the correct .xml file containing GUI elements
+    // These can later be accessed via binding.elementname
     private var _binding: FragmentTreatRequestBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
 

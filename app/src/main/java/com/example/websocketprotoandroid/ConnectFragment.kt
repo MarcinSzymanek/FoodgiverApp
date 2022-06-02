@@ -13,19 +13,18 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.example.websocketprotoandroid.databinding.FragmentFirstBinding
+import com.example.websocketprotoandroid.databinding.ConnectFragmentBinding
 
 private const val TAG = "FirstFragment"
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class ConnectFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // Binds the fragment to the correct .xml file containing GUI elements
+    // These can later be accessed via binding.elementname
+    private var _binding: ConnectFragmentBinding? = null
     private val binding get() = _binding!!
     var notificationManager : NotificationManager? = null
 
@@ -36,7 +35,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = ConnectFragmentBinding.inflate(inflater, container, false)
         val mAct = activity
         if(mAct != null){
             notificationManager = ContextCompat.getSystemService(mAct, NotificationManager::class.java) as NotificationManager
